@@ -28,15 +28,6 @@
         "service_worker": "background.js",
         "type": "module"
     },
-    "commands": {
-        "keyboard-shortcuts": {
-            "suggested_key": {
-                "default": "default key shortcut",
-                "mac": "mac shortcut"
-            },
-            "description": "put keyboard shortcut here"
-        }
-    },
     "permission": [
         "contextMenus",
         "scripting",
