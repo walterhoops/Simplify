@@ -3,8 +3,61 @@
     "name": "Hello Extensions of the world!",
     "description": "Base Level Extension",
     "version": "1.0",
+    "icons": {
+        "16": "images/hi.png"
+    },
     "action": {
-      "default_popup": "hello.html",
-      "default_icon": "hello_extensions.png"
+        "default_popup": "src/popup/index.html",
+        "default_icon": {
+            "16": "images/hi.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "lib/jquery-2.1.3.min.js",
+                "contentScript.js"
+            ],
+            "all_frames": true
+        }
+    ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "commands": {
+        "keyboard-shortcuts": {
+            "suggested_key": {
+                "default": "default key shortcut",
+                "mac": "mac shortcut"
+            },
+            "description": "put keyboard shortcut here"
+        }
+    },
+    "permission": [
+        "contextMenus",
+        "scripting",
+        "storage"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "images/*.png",
+                "images/*.svg",
+                "src/contentScripts/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
     }
-  }
+}
