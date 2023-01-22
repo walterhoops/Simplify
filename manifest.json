@@ -28,7 +28,7 @@
         "service_worker": "background.js",
         "type": "module"
     },
-    "permission": [
+    "permissions": [
         "contextMenus",
         "scripting",
         "storage"
