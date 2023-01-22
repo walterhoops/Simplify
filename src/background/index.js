@@ -1,3 +1,5 @@
+import { simplifyText } from "./actions/index.js";
+
 function initialize() {
     // initialize
     initializeContextMenus();
@@ -18,7 +20,7 @@ function initializeContextMenuEventListeners() {
     chrome.contextMenus.onClicked.addListener(({ menuItemId }) => {
         switch (menuItemId) {
             case 'test':
-                console.log("testing context menu")
+                // simplifyText();
                 break;
         }
     });

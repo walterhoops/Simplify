@@ -1,0 +1,1 @@
+export { default as simplifyText } from './simplifyText.js';
