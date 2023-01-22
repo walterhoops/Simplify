@@ -1,3 +1,3 @@
-function initialize() {
-  // intialize
-}
+import { initialize } from './src/background/index.js';
+
+initialize();
