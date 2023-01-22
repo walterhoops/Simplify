@@ -25,11 +25,16 @@ function initializeContextMenus() {
       id: "simplify",
       contexts: ["selection"],
     });
+    chrome.contextMenus.create({
+        title: "Modal",
+        id: "modal",
+        contexts: ["selection"],
+      });
   });
 }
 
 function initializeContextMenuEventListeners() {
-  chrome.contextMenus.onClicked.addListener(({ menuItemId, selectionText }) => {
+  chrome.contextMenus.onClicked.addListener(({ menuItemId, selectionText }, tab) => {
     switch (menuItemId) {
       case "test":
         console.log("testing context menu");
@@ -44,6 +49,13 @@ function initializeContextMenuEventListeners() {
         }).catch((err) => {
             console.log(err);
         });
+        break;
+      case "modal":
+        let message = {
+            action: "open modal",
+            text: "blahblah"
+        }
+        chrome.tabs.sendMessage(tab.id, { message })
     }
   });
 }
