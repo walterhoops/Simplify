@@ -26,38 +26,49 @@ function initializeContextMenus() {
       contexts: ["selection"],
     });
     chrome.contextMenus.create({
-        title: "Modal",
-        id: "modal",
-        contexts: ["selection"],
-      });
+      title: "Modal",
+      id: "modal",
+      contexts: ["selection"],
+    });
   });
 }
 
 function initializeContextMenuEventListeners() {
-  chrome.contextMenus.onClicked.addListener(({ menuItemId, selectionText }, tab) => {
-    switch (menuItemId) {
-      case "test":
-        console.log("testing context menu");
-        break;
-      case "logHighlightedText":
-        console.log(selectionText);
-        break;
-      case "simplify":
-        console.log("simplifying text");
-        onSimplify(selectionText).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        });
-        break;
-      case "modal":
-        let message = {
-            action: "open modal",
-            text: "blahblah"
-        }
-        chrome.tabs.sendMessage(tab.id, { message })
+  chrome.contextMenus.onClicked.addListener(
+    ({ menuItemId, selectionText }, tab) => {
+      switch (menuItemId) {
+        case "test":
+          console.log("testing context menu");
+          break;
+        case "logHighlightedText":
+          console.log(selectionText);
+          break;
+        case "simplify":
+          console.log("simplifying text");
+          onSimplify(selectionText)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          break;
+        case "modal":
+          console.log("simplifying text");
+          let message = { action: "open modal", highlightedText: selectionText }
+          onSimplify(selectionText)
+            .then((res) => {
+                console.log(res)
+                message.simplifiedText = res
+                chrome.tabs.sendMessage(tab.id, { message });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          break;
+      }
     }
-  });
+  );
 }
 
 async function onSimplify(text, age = "5") {
@@ -77,7 +88,7 @@ async function onSimplify(text, age = "5") {
       );
     }
 
-    return data.result.replace('\n', '');
+    return data.result.replace("\n", "");
   } catch (error) {
     // Consider implementing your own error handling logic here
     console.error(error);
