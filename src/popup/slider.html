@@ -99,26 +99,31 @@ left: 65%;
 
 </head>
 <body>
-<div class="form-container">
-  <h1>Simplify</h1>
-  <form>
-    <!-- <input type="text" placeholder="Enter text to simplify">
-    <input type="submit" value="Submit"> -->
-    <br>
-    <h2>Explain like I'm...</h2>
-    <input type="range" id="size" name="size" min="5" max="25" step="5" value="5">
-    
-    <div class="slider-labels">
-      <label>5</label>
-      <label>10</label>
-      <label>15</label>
-      <label>20</label>
-      <label>25</label>
-    </div>
-    <h2>years old
-    </h2>
-
-  </form> 
-</div>
+<dialog open="">
+  <div class="form-container">
+    <h1>Simplify</h1>
+    <form>
+      <!-- <input type="text" placeholder="Enter text to simplify">
+      <input type="submit" value="Submit"> -->
+      <br>
+      <h2>Explain like I'm...</h2>
+      <input type="range" id="size" name="size" min="5" max="25" step="5" value="5">
+  
+      <div class="slider-labels">
+        <label>5</label>
+        <label>10</label>
+        <label>15</label>
+        <label>20</label>
+        <label>25</label>
+      </div>
+      <h2>years old
+      </h2>
+  
+    </form>
+  </div>
+  <form method="dialog">
+    <button>Close</button>
+  </form>
+</dialog>
 </body>
 </html>

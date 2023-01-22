@@ -16,7 +16,6 @@ const slider_css = `body {
   background-color: #F5F5F5;
 }
 
-
 .form-container {
 background-color: #ffffff;
 border: 2px solid #1A237E;
@@ -105,76 +104,63 @@ left: 50%;
 left: 65%;
 }`
 
-function createModal() {
-
-  let modal = document.createElement('dialog')
-
-  let form_container = document.createElement('div');
-  form_container.className = "form-container"
-  let h1_simplify = document.createElement('h1');
-  h1_simplify.innerHTML = "Simplify"
-
-  let slider = document.createElement('form');
-  let h2_explain = document.createElement('h2');
-  h2_explain.innerHTML = "Explain like I'm..."
-
-  let slider_input = document.createElement('input');
-  slider_input.type = "range"
-  slider_input.id = "size"
-  slider_input.name = "size"
-  slider_input.min = "5"
-  slider_input.max = "25"
-  slider_input.step = "5"
-  slider_input.value = "5"
-
-  let slider_labels = document.createElement('div')
-  slider_labels.className = "slider-labels"
-  let label_5 = document.createElement('label')
-  label_5.innerHTML = "5"
-  let label_10 = document.createElement('label')
-  label_10.innerHTML = "10"
-  let label_15 = document.createElement('label')
-  label_15.innerHTML = "15"
-  let label_20 = document.createElement('label')
-  label_20.innerHTML = "20"
-  let label_25 = document.createElement('label')
-  label_25.innerHTML = "25"
-  slider_labels.appendChild(label_5)
-  slider_labels.appendChild(label_10)
-  slider_labels.appendChild(label_15)
-  slider_labels.appendChild(label_20)
-  slider_labels.appendChild(label_25)
-
-  let h2_years = document.createElement('h2');
-  h2_years.innerHTML = "years old"
+const slider_html = `
+<div>
+  <div class="form-container">
+    <h1>Simplify</h1>
+    <form>
+      <!-- <input type="text" placeholder="Enter text to simplify">
+      <input type="submit" value="Submit"> -->
+      <br>
+      <h2>Explain like I'm...</h2>
+      <input type="range" id="size" name="size" min="5" max="25" step="5" value="5">
   
-  slider.appendChild(document.createElement('br'))
-  slider.appendChild(h2_explain)
-  slider.appendChild(slider_input)
-  slider.appendChild(slider_labels)
-  slider.appendChild(h2_years)
+      <div class="slider-labels">
+        <label>5</label>
+        <label>10</label>
+        <label>15</label>
+        <label>20</label>
+        <label>25</label>
+      </div>
+      <h2>years old
+      </h2>
+    </form>
+</div>`
 
-  form_container.appendChild(h1_simplify)
-  form_container.append(slider)
+function createModal() {
+  /** Create modal and add CSS */
+  const modal_css = `
+    width: 50%;
+    height: 50%;
+  `
+  let modal = document.createElement('dialog')
+  modal.style.cssText = modal_css;
 
-  modal.appendChild(form_container)
-
-  let form = document.createElement('form')
-  form.method = 'dialog'
+  /** Create closing button -> modal doesn't open without this */
+  let close_form = document.createElement('form')
+  close_form.method = 'dialog'
   let close = document.createElement('button');
   close.innerHTML += "Close"
-  form.appendChild(close);
+  close_form.appendChild(close);
 
-  modal.appendChild(form)
+  // inject slider html
+  modal.innerHTML += slider_html
+  // append close button
+  modal.appendChild(close_form)
 
+  // inject CSS string into link element
   let link = document.createElement('link')
   link.rel = 'stylesheet'
   link.type = 'text/css'
   link.innerHTML = slider_css
 
+  // add css to head
   document.getElementsByTagName('HEAD')[0].appendChild(link);
-  document.body.appendChild(modal);
 
+  // add modal to body
+  document.body.appendChild(modal)
+
+  // show modal required for modal to show
   modal.showModal();
 
 
