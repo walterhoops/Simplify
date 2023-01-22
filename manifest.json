@@ -1,0 +1,10 @@
+{
+  "name": "WKKD",
+  "description": "An extension to help you simplify texts",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["contextMenus"]
+}
