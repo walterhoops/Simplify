@@ -55,45 +55,42 @@ function initializeContextMenuEventListeners() {
           break;
         case "modal":
           console.log("simplifying text");
-          let message = { action: "open modal", highlightedText: selectionText }
-          onSimplify(selectionText)
-            .then((res) => {
-                console.log(res)
-                message.simplifiedText = res
-                chrome.tabs.sendMessage(tab.id, { message });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          let message = {
+            action: "open modal",
+            highlightedText: selectionText,
+          };
+          chrome.tabs.sendMessage(tab.id, { message }).catch((err) => {
+            console.log(err);
+          });
           break;
       }
     }
   );
 }
 
-async function onSimplify(text, age = "5") {
-  try {
-    const response = await fetch("http://localhost:3000/api/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: text, age: age }),
-    });
+// async function onSimplify(text, age = "5") {
+//   try {
+//     const response = await fetch("http://localhost:3000/api/generate", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ text: text, age: age }),
+//     });
 
-    const data = await response.json();
-    if (response.status !== 200) {
-      throw (
-        data.error || new Error(`Request failed with status ${response.status}`)
-      );
-    }
+//     const data = await response.json();
+//     if (response.status !== 200) {
+//       throw (
+//         data.error || new Error(`Request failed with status ${response.status}`)
+//       );
+//     }
 
-    return data.result.replace("\n", "");
-  } catch (error) {
-    // Consider implementing your own error handling logic here
-    console.error(error);
-    console.log(error.message);
-  }
-}
+//     return data.result.replace("\n", "");
+//   } catch (error) {
+//     // Consider implementing your own error handling logic here
+//     console.error(error);
+//     console.log(error.message);
+//   }
+// }
 
 export { initialize };
